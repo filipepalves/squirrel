@@ -2,8 +2,8 @@ name: Daily Playwright Tests
 
 on:
   schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch: 
+    - cron: '0 0 * * *'  # Executa todos os dias à meia-noite (UTC)
+  workflow_dispatch:     # Permite executar o workflow manualmente
 
 jobs:
   test:
@@ -11,7 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14, 16, 18]
+        node-version: [14, 16, 18]  # Testa em diferentes versões do Node.js
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -23,6 +24,9 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+
+    - name: Install Playwright browsers
+      run: npx playwright install
 
     - name: Run Playwright tests
       run: npx playwright test
